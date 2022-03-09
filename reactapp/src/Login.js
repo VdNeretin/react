@@ -1,11 +1,11 @@
 import React from 'react';
-import {Map} from './Map'
-import {Profile} from './Profile'
+import {Home} from './Home'
+import {Register} from './Register'
 import './App.css';
 
 const PAGES = {
-  map: <Map/>,
-  profile: <Profile/>
+  home: <Home/>,
+  register: <Register/>
 }
 
 class App extends React.Component {
@@ -22,10 +22,10 @@ class App extends React.Component {
         <nav>
           <ul>
             <li>
-              <button onClick={() => {this.navigateTo("map")}}>Map</button>
+              <button onClick={() => {this.navigateTo("home")}}>Login</button>
             </li>
             <li>
-              <button onClick={() => {this.navigateTo("profile")}}>Profile</button>
+              <button onClick={() => {this.navigateTo("register")}}>Register</button>
             </li>
           </ul>
         </nav>
