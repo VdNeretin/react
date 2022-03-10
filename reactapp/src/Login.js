@@ -1,43 +1,18 @@
 import React from 'react';
-import {Home} from './Home'
-import {Register} from './Register'
-import './App.css';
 
-const PAGES = {
-  home: <Home/>,
-  register: <Register/>
-}
+class Login extends React.Component {
+  render () {
+    const { setPage } = this.props
 
-class App extends React.Component {
-  state = { currentPage: "home" };
-
-  navigateTo = (page) => {
-    this.setState({ currentPage: page })
-  }
-
-  render() {
     return (
-    <>
-      <header>
-        <nav>
-          <ul>
-            <li>
-              <button onClick={() => {this.navigateTo("home")}}>Login</button>
-            </li>
-            <li>
-              <button onClick={() => {this.navigateTo("register")}}>Register</button>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <main>
-        <section>
-          {PAGES[this.state.currentPage]}
-        </section>
-      </main>
-    </>
-    );
+      <form onSubmit={() => setPage('map')}>
+        <input name='login' />
+        <input name='password' />
+        <button type='submit'>Войти</button>
+        <button onClick={() => setPage('registration')}>Зарегистрироваться</button>
+      </form>
+    )
   }
 }
 
-export default App;
+export { Login }

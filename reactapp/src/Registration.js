@@ -1,8 +1,10 @@
 import React from "react";
 
-export const Register = () => {
+class Registration extends React.Component {
+  render () {
+    const { setPage } = this.props
   return (
-    <form>
+    <form onSubmit={() => {setPage('map')}}>
       <h1>Регистрация</h1>
       <label htmlFor="email">Адрес электронной почты *</label>
       <input id="email" type="email" name="email" size="28" />
@@ -12,7 +14,10 @@ export const Register = () => {
       <input id="text" type="text" name="lastname" size="28" />
       <label htmlFor="password">Пароль *</label>
       <input id="password" type="password" name="password" size="28" />
-      <button>Зарегистрироваться</button>
+      <button type='submit'>Зарегистрироваться</button>
     </form>
   )
 }
+}
+
+export { Registration }

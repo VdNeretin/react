@@ -1,43 +1,42 @@
 import React from 'react';
-import {Map} from './Map'
-import {Profile} from './Profile'
-import './App.css';
+import { Login } from './Login';
+import { Map } from './Map'
+import { Registration } from './Registration'
+import { Profile } from './Profile'
 
 const PAGES = {
-  map: <Map/>,
-  profile: <Profile/>
+  login: Login,
+  map: Map,
+  registration: Registration,
+  profile: Profile
 }
 
 class App extends React.Component {
-  state = { currentPage: "home" };
+  state = { page: 'login' }
 
-  navigateTo = (page) => {
-    this.setState({ currentPage: page })
+  setPage = (page) => {
+    this.setState({ page })
   }
 
   render() {
+    const { page } = this.state
+    const Page = PAGES[page]
+
     return (
-    <>
+      <>
       <header>
         <nav>
-          <ul>
-            <li>
-              <button onClick={() => {this.navigateTo("map")}}>Map</button>
-            </li>
-            <li>
-              <button onClick={() => {this.navigateTo("profile")}}>Profile</button>
-            </li>
-          </ul>
+          <button onClick={() => this.setPage('map')}>Карта</button>
+          <button onClick={() => this.setPage('profile')}>Профиль</button>
+          <button onClick={() => this.setPage('login')}>Выйти</button>
         </nav>
       </header>
       <main>
-        <section>
-          {PAGES[this.state.currentPage]}
-        </section>
+        <Page setPage={this.setPage} />
       </main>
-    </>
-    );
+      </>
+    )
   }
 }
 
-export default App;
+export default App
