@@ -1,6 +1,13 @@
 import React from "react";
+import { withAuth } from "./AuthContext";
 
 class Profile extends React.Component {
+
+  unauthenticate = () => {
+    this.props.logOut();
+    this.props.setPage("login")
+  }
+
   render () {
     const { setPage } = this.props
 
@@ -16,9 +23,10 @@ class Profile extends React.Component {
       <label htmlFor="cvc">CVC</label>
       <input id="cvc" type="number" name="cvcnumber" size="28" />
       <button type='submit'>сохранить</button>
+      <button onClick={this.unauthenticate}>Log Out</button>
     </form>
     )
   }
 }
 
-export { Profile }
+export const ProfileWithAuth = withAuth(Profile)

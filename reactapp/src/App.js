@@ -1,21 +1,30 @@
 import React from 'react';
-import { Login } from './Login';
+import { LoginWithAuth } from './Login';
 import { Map } from './Map'
 import { Registration } from './Registration'
-import { Profile } from './Profile'
+import { ProfileWithAuth } from './Profile'
+import { withAuth } from './AuthContext';
 
 const PAGES = {
-  login: Login,
-  map: Map,
+  login: (props) => <LoginWithAuth {...props}/>,
+  map: (props)=><Map {...props}/>,
   registration: Registration,
-  profile: Profile
+  profile: (props)=><ProfileWithAuth {...props}/>
 }
 
 class App extends React.Component {
-  state = { page: 'login' }
+  unauthenticate = () => {
+    this.props.logOut();
+    this.props.setPage("login")
+  }
+  state = { currentPage: 'login' };
 
-  setPage = (page) => {
-    this.setState({ page })
+  setPageTo = (page) => {
+    if (this.props.isLoggedIn){
+      this.setState({ currentPage: page })
+    } else {
+      this.setState({ currentPage: "login" })
+    }
   }
 
   render() {
@@ -26,17 +35,17 @@ class App extends React.Component {
       <>
       <header>
         <nav>
-          <button onClick={() => this.setPage('map')}>Карта</button>
-          <button onClick={() => this.setPage('profile')}>Профиль</button>
-          <button onClick={() => this.setPage('login')}>Выйти</button>
+          <button onClick={() => this.setPageTo('map')}>Карта</button>
+          <button onClick={() => this.setPageTo('profile')}>Профиль</button>
+          <button onClick={this.unauthenticate}>Выйти</button>
         </nav>
       </header>
       <main>
-        <Page setPage={this.setPage} />
+        {PAGES [this.state.currentPage]({setPage: this.setPageTo})}
       </main>
       </>
     )
   }
 }
 
-export default App
+export default withAuth(App);
