@@ -1,10 +1,27 @@
 import React from "react";
+import { withAuth } from './AuthContext';
 
-class Registration extends React.Component {
+export class Registration extends React.Component {
+  goToProfile = () => {
+    this.props.setPage('profile')
+  } 
+
+  authenticate = (event) => {
+    event.preventDefault()
+    const { email, password } = event.target;
+    this.props.logIn(email.value, password.value)
+  }
+
   render () {
-    const { setPage } = this.props
+    
   return (
-    <form onSubmit={() => {setPage('map')}}>
+    <>{
+      this.props.isLoggedIn ? (
+        <p>
+          Вы вошли в аккаунт <button onClick={this.goToProfile}>перейти к профилю</button>
+        </p>
+      ) : (
+    <form onSubmit={this.authenticate}>
       <h1>Регистрация</h1>
       <label htmlFor="email">Адрес электронной почты *</label>
       <input id="email" type="email" name="email" size="28" />
@@ -16,8 +33,11 @@ class Registration extends React.Component {
       <input id="password" type="password" name="password" size="28" />
       <button type='submit'>Зарегистрироваться</button>
     </form>
+    )
+    }
+    </>
   )
 }
 }
 
-export { Registration }
+export const RegistrationWithAuth = withAuth(Registration)

@@ -18,7 +18,7 @@ export class Login extends React.Component {
   }
 
   render() {
-    const { setPage } = this.props
+   
 
     return (
       <>

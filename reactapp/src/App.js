@@ -1,35 +1,37 @@
 import React from 'react';
 import { LoginWithAuth } from './Login';
 import { Map } from './Map'
-import { Registration } from './Registration'
+import { RegistrationWithAuth } from './Registration'
 import { ProfileWithAuth } from './Profile'
 import { withAuth } from './AuthContext';
 
 const PAGES = {
   login: (props) => <LoginWithAuth {...props}/>,
   map: (props)=><Map {...props}/>,
-  registration: Registration,
+  registration: (props)=><RegistrationWithAuth {...props}/>,
   profile: (props)=><ProfileWithAuth {...props}/>
 }
 
 class App extends React.Component {
+  
   unauthenticate = () => {
     this.props.logOut();
     this.props.setPage("login")
   }
+  
   state = { currentPage: 'login' };
 
   setPageTo = (page) => {
     if (this.props.isLoggedIn){
       this.setState({ currentPage: page })
     } else {
-      this.setState({ currentPage: "login" })
+      this.setState({ currentPage: "registration"})
     }
   }
 
   render() {
-    const { page } = this.state
-    const Page = PAGES[page]
+    // const { page } = this.state
+    // const Page = PAGES[page]
 
     return (
       <>
@@ -41,7 +43,7 @@ class App extends React.Component {
         </nav>
       </header>
       <main>
-        {PAGES [this.state.currentPage]({setPage: this.setPageTo})}
+        {PAGES[this.state.currentPage]({setPage: this.setPageTo})}
       </main>
       </>
     )
