@@ -1,20 +1,13 @@
 import React from 'react';
-import { withAuth } from './AuthContext';
+import { connect } from 'react-redux';
+import { authenticate } from './actions'
+import { Link } from 'react-router-dom'
 
 export class Login extends React.Component {
-
-  goToProfile = () => {
-    this.props.setPage('profile')
-  }
-
-  goToReg = () => {
-    this.props.setPage('registration')
-  }
-
   authenticate = (event) => {
     event.preventDefault()
     const { email, password } = event.target;
-    this.props.logIn(email.value, password.value)
+    this.props.authenticate(email.value, password.value)
   }
 
   render() {
@@ -25,7 +18,7 @@ export class Login extends React.Component {
         {
           this.props.isLoggedIn ? (
             <p>
-              Вы вошли в аккаунт <button onClick={this.goToProfile}>перейти к профилю</button>
+              Вы вошли в аккаунт <Link to='/profile'>перейти к профилю</Link>
             </p>
           ) : (
             <form onSubmit={this.authenticate}>
@@ -34,7 +27,7 @@ export class Login extends React.Component {
               <label htmlFor='password'>password:</label>
               <input name='password' id='password' type='password' size='28' />
               <button type='submit'>Войти</button>
-              <button onClick={this.goToReg}>Зарегистрироваться</button>
+              {/* <button onClick={this.goToReg}>Зарегистрироваться</button> */}
             </form>
           )
         }
@@ -43,4 +36,7 @@ export class Login extends React.Component {
   }
 }
 
-export const LoginWithAuth = withAuth(Login)
+export const LoginWithAuth = connect(
+  (state) => ({isLoggedIn: state.auth.isLoggedIn}),
+  { authenticate }
+)(Login)

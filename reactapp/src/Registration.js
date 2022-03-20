@@ -1,5 +1,4 @@
 import React from "react";
-import { withAuth } from './AuthContext';
 
 export class Registration extends React.Component {
   goToProfile = () => {
@@ -40,4 +39,4 @@ export class Registration extends React.Component {
 }
 }
 
-export const RegistrationWithAuth = withAuth(Registration)
+export const RegistrationWithAuth = (Registration)
