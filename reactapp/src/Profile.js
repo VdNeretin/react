@@ -4,6 +4,7 @@ import { logOut } from './actions'
 
 class Profile extends React.Component {
 
+
   unauthenticate = () => {
     this.props.logOut();
   }
