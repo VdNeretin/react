@@ -1,10 +1,11 @@
 import React from 'react';
 import { LoginWithAuth } from './Login';
 import { Map } from './Map'
-// import { RegistrationWithAuth } from './Registration'
+import { RegistrationWithAuth } from './Registration'
 import { ProfileWithAuth } from './Profile'
 import { connect, useSelector } from 'react-redux';
 import { Link, Routes, Route, Navigate } from 'react-router-dom'
+import { logOut } from './actions'
 
 const ProtectedPage = ({ component }) => {
   const isLoggedIn = useSelector (state => state.auth.isLoggedIn)
@@ -13,7 +14,13 @@ const ProtectedPage = ({ component }) => {
 }
 
 
-class App extends React.element {
+
+class App extends React.Component {
+
+  unauthenticate = () => {
+    this.props.logOut();
+  }
+
   render() {
 
     return (
@@ -21,9 +28,9 @@ class App extends React.element {
       <header>
         <nav>
           <ul>
-          <li><Link to="/">Home</Link></li>
           <li><Link to="map">Карта</Link></li>
           <li><Link to="profile">Профиль</Link></li>
+          <li><button onClick={this.unauthenticate}>Log Out</button></li>
           </ul>
         </nav>
       </header>
@@ -31,6 +38,7 @@ class App extends React.element {
         <section>
           <Routes >
            <Route exact path='/' element={<LoginWithAuth />} />
+           <Route exact path='/registration' element={<RegistrationWithAuth />} />
            <Route path='map' element={<ProtectedPage component={<Map />} />} />
            <Route path='profile' element={<ProtectedPage component={<ProfileWithAuth />} />} />
           </Routes>
@@ -42,4 +50,4 @@ class App extends React.element {
 }
 
 export default connect(
-state => ({isLoggedIn: state.auth.isLoggedIn}))(App);
+state => ({isLoggedIn: state.auth.isLoggedIn}), { logOut })(App);

@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { logOut } from './actions'
+import { Link } from 'react-router-dom'
 
 class Profile extends React.Component {
 
@@ -23,8 +24,7 @@ class Profile extends React.Component {
       <input id="date" type="date" name="date" size="28" />
       <label htmlFor="cvc">CVC</label>
       <input id="cvc" type="number" name="cvcnumber" size="28" />
-      <button type='submit'>сохранить</button>
-      <button onClick={this.unauthenticate}>Log Out</button>
+      <Link to='/map'>Сохранить</Link>
     </form>
     )
   }

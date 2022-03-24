@@ -1,24 +1,20 @@
 import React from "react";
+import { Link, Navigate } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { authenticate } from './actions'
 
 export class Registration extends React.Component {
-  goToProfile = () => {
-    this.props.setPage('profile')
-  } 
-
   authenticate = (event) => {
     event.preventDefault()
     const { email, password } = event.target;
-    this.props.logIn(email.value, password.value)
-  }
-
+    this.props.authenticate(email.value, password.value)
+  } 
   render () {
     
   return (
     <>{
       this.props.isLoggedIn ? (
-        <p>
-          Вы вошли в аккаунт <button onClick={this.goToProfile}>перейти к профилю</button>
-        </p>
+        <Navigate to="/map" />
       ) : (
     <form onSubmit={this.authenticate}>
       <h1>Регистрация</h1>
@@ -31,6 +27,9 @@ export class Registration extends React.Component {
       <label htmlFor="password">Пароль *</label>
       <input id="password" type="password" name="password" size="28" />
       <button type='submit'>Зарегистрироваться</button>
+      <p>
+        Уже зарегестрированны? <Link to='/'>Войти</Link>
+      </p>
     </form>
     )
     }
@@ -39,4 +38,8 @@ export class Registration extends React.Component {
 }
 }
 
-export const RegistrationWithAuth = (Registration)
+
+export const RegistrationWithAuth = connect(
+  (state) => ({isLoggedIn: state.auth.isLoggedIn}),
+  { authenticate }
+)(Registration)

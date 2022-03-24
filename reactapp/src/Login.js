@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { authenticate } from './actions'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 export class Login extends React.Component {
   authenticate = (event) => {
@@ -11,15 +11,11 @@ export class Login extends React.Component {
   }
 
   render() {
-   
-
     return (
       <>
         {
           this.props.isLoggedIn ? (
-            <p>
-              Вы вошли в аккаунт <Link to='/profile'>перейти к профилю</Link>
-            </p>
+            <Navigate to="/map" />
           ) : (
             <form onSubmit={this.authenticate}>
               <label htmlFor='email'>E-mail:</label>
@@ -27,7 +23,7 @@ export class Login extends React.Component {
               <label htmlFor='password'>password:</label>
               <input name='password' id='password' type='password' size='28' />
               <button type='submit'>Войти</button>
-              {/* <button onClick={this.goToReg}>Зарегистрироваться</button> */}
+              <Link to='/registration'>Зарегистрироваться</Link>
             </form>
           )
         }
