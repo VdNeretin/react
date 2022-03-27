@@ -5,11 +5,6 @@ import { Link } from 'react-router-dom'
 
 class Profile extends React.Component {
 
-
-  unauthenticate = () => {
-    this.props.logOut();
-  }
-
   render () {
     const { setPage } = this.props
 
@@ -25,6 +20,7 @@ class Profile extends React.Component {
       <label htmlFor="cvc">CVC</label>
       <input id="cvc" type="number" name="cvcnumber" size="28" />
       <Link to='/map'>Сохранить</Link>
+      <button></button>
     </form>
     )
   }
