@@ -1,3 +1,5 @@
+import { createAction } from 'redux-actions'
+
 export const LOG_IN = 'LOG_IN'
 export const LOG_OUT = 'LOG_OUT'
 export const AUTHENTICATE = 'AUTHENTICATE'
@@ -10,3 +12,7 @@ export const authenticate = (email, password) => ({
     password
   }
 })
+
+export const addCardAction = createAction('ADD_CARD')
+export const addCardSuccess = createAction('SUCCESS')
+export const failureAction = createAction('FAILURE')

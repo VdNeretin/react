@@ -1,32 +1,58 @@
 import React from "react";
-import { connect } from 'react-redux';
-import { logOut } from './actions'
-import { Link } from 'react-router-dom'
+import PropTypes from "prop-types";
+import { Button, Typography, Paper } from "@material-ui/core";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import ProfileCard from "./ProfileCard";
+import { addCardAction } from "./actions";
 
-class Profile extends React.Component {
+const Profile = (props) => {
 
-  render () {
-    const { setPage } = this.props
-
-    return (
-      <form onSubmit={() => setPage('map')}>
-      <h1>Профиль</h1>
-      <label htmlFor="email">Имя владельца</label>
-      <input id="text" type="text" name="firstdname" size="28" />
-      <label htmlFor="number">Номер карты</label>
-      <input id="number" type="number" name="cardnumber" size="28" />
-      <label htmlFor="date">MM/YY</label>
-      <input id="date" type="date" name="date" size="28" />
-      <label htmlFor="cvc">CVC</label>
-      <input id="cvc" type="number" name="cvcnumber" size="28" />
-      <Link to='/map'>Сохранить</Link>
-      <button></button>
-    </form>
-    )
+  const handleSubmit = (number, name, date, cvc) => {
+    props.addCard({
+      number,
+      name,
+      date,
+      cvc
+    })
   }
+
+  return (
+    <div>
+      <Paper>
+        <Typography variant="h4" color="inherit">Профиль</Typography>
+        <Typography>Способ оплаты</Typography>
+        {props.cardIsExist ? (
+          <>
+          <p>Платежные данные обновлены.</p>
+          <Button to='map' component={Link}>
+            Перейти на карту
+          </Button>
+          </>)
+          : (
+            <ProfileCard handleSubmit={handleSubmit} />  
+        )}
+      </Paper>
+    </div>
+  )
 }
 
-export const ProfileWithAuth = connect(
-  null,
-  { logOut }
-)(Profile)
+Profile.propTypes = {
+  addCard: PropTypes.func,
+  cardIsExist: PropTypes.bool
+}
+
+Profile.defaultProps = {
+  addCard: () => {},
+  cardIsExist: false
+};
+
+const mapStateToProps = (state) => ({
+  cardIsExist: state.card.cardIsExist
+});
+
+const mapDispathToProps = (dispatch) => ({
+  addCard: (card) => dispatch(addCardAction(card))
+});
+
+export const ProfileWithAuth = connect(mapStateToProps, mapDispathToProps)(Profile)
