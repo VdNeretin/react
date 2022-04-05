@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import ProfileCard from "./ProfileCard";
 import { addCardAction } from "./actions";
 
-const Profile = (props) => {
+export const Profile = (props) => {
 
   const handleSubmit = (number, name, date, cvc) => {
     props.addCard({

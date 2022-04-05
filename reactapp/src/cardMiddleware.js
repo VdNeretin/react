@@ -8,7 +8,7 @@ export const cardMiddleware = (store) => (next) => (action) =>{
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         cardNumber: action.payload.number,
-        epiryDate: action.payload.date,
+        expiryDate: action.payload.date,
         cardName: action.payload.name,
         cvc: action.payload.cvc,
         token

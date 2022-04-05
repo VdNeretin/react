@@ -2,13 +2,13 @@ import React from 'react'
 import PropTtypes from 'prop-types'
 import { Button, Card, InputLabel, Input } from '@material-ui/core'
 
-const ProfileCard = (props) => {
+export const ProfileCard = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
     props.handleSubmit(
-      e.target.card.value,
-      e.target.surname.value,
+      e.target.number.value,
+      e.target.name.value,
       e.targer.date.value,
       e.target.cvc.value,
     )
@@ -22,7 +22,7 @@ const ProfileCard = (props) => {
         <Input 
         id='number'
         type='text'
-        name='card'
+        name='number'
         placeholder='0000 0000 0000 0000'
         required
         />
@@ -36,11 +36,11 @@ const ProfileCard = (props) => {
         />
         </Card>
         <Card>
-        <InputLabel htmlFor='surname'>Имя владельца *</InputLabel>
+        <InputLabel htmlFor='name'>Имя владельца *</InputLabel>
         <Input 
-        id='surname'
+        id='name'
         type='text'
-        name='surname'
+        name='name'
         placeholder='USER NAME'
         required
         />
@@ -67,4 +67,4 @@ ProfileCard.defaultProps = {
   handleSubmit: () => {}
 }
 
-export default ProfileCard;
+export default ProfileCard

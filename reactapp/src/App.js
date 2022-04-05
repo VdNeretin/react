@@ -2,7 +2,7 @@ import React from 'react';
 import { LoginWithAuth } from './Login';
 import { Map } from './Map'
 import { RegistrationWithAuth } from './Registration'
-import { ProfileWithAuth } from './Profile'
+import { ProfileCard } from './ProfileCard'
 import { connect, useSelector } from 'react-redux';
 import { Link, Routes, Route, Navigate } from 'react-router-dom'
 import { logOut } from './actions'
@@ -40,7 +40,7 @@ class App extends React.Component {
            <Route exact path='/' element={<LoginWithAuth />} />
            <Route exact path='/registration' element={<RegistrationWithAuth />} />
            <Route path='map' element={<ProtectedPage component={<Map />} />} />
-           <Route path='profile' element={<ProtectedPage component={<ProfileWithAuth />} />} />
+           <Route path='profile' element={<ProtectedPage component={<ProfileCard />} />} />
           </Routes>
         </section>
       </main>
